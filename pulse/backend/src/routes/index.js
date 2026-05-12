@@ -1,0 +1,13 @@
+import { Router } from 'express';
+const r=Router();
+r.post('/auth/register',(req,res)=>res.json({token:'demo-jwt',user:{id:'u1',...req.body}}));
+r.post('/auth/login',(req,res)=>res.json({token:'demo-jwt',user:{email:req.body.email,username:'pulseUser'}}));
+r.get('/auth/google',(req,res)=>res.json({message:'OAuth starter route'}));
+r.get('/feed',(req,res)=>res.json({items:[{id:'p1',text:'Smart recommendation post'}],nextCursor:'cursor_2'}));
+r.post('/posts',(req,res)=>res.status(201).json({id:'new_post',...req.body}));
+r.get('/explore/trending',(req,res)=>res.json({hashtags:['#pulse','#neon','#fyp'],viralPosts:[{id:'v1'}]}));
+r.get('/search',(req,res)=>res.json({q:req.query.q,users:[],posts:[],hashtags:[]}));
+r.post('/ai/caption',(req,res)=>res.json({caption:`✨ ${req.body.prompt || 'Generated caption'}`}));
+r.post('/ai/moderate',(req,res)=>res.json({safe:true,toxicity:0.03}));
+r.post('/moderation/report',(req,res)=>res.json({status:'reported',...req.body}));
+export default r;

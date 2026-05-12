@@ -1,0 +1,11 @@
+import 'dotenv/config';
+import express from 'express';
+import http from 'http';
+import cors from 'cors';
+import { Server } from 'socket.io';
+import api from './routes/index.js';
+const app=express();app.use(cors());app.use(express.json());app.use('/api',api);
+const server=http.createServer(app);const io=new Server(server,{cors:{origin:'*'}});
+io.on('connection',socket=>{socket.on('presence',u=>io.emit('presence',u));socket.on('typing',d=>socket.broadcast.emit('typing',d));socket.on('dm:send',msg=>io.emit('dm:receive',msg));socket.on('notify',n=>io.emit('notify',n));});
+app.get('/health',(_,res)=>res.json({ok:true,service:'pulse-backend'}));
+server.listen(process.env.PORT||4000,()=>console.log('Pulse API running'));

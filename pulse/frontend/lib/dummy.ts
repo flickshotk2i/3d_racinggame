@@ -1,0 +1,1 @@
+export const posts=[...Array(8)].map((_,i)=>({id:i+1,author:['Nova','Kai','Mira'][i%3],username:['nova','kai','mira'][i%3],text:`Futuristic post #${i+1} with #pulse @friends`,likes:88+i*7,comments:15+i,reposts:6+i,bookmarks:4+i}));
